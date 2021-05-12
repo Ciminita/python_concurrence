@@ -2,7 +2,7 @@
 import tkinter as tk
 from tkinter import ttk
 import time
-import threading
+import multiprocessing
 
 #Crea la ventana principal
 main_window = tk.Tk()
@@ -24,7 +24,7 @@ def createLabel(a,b):
 def crearAnimacion(a, b, char):
     mylabel = createLabel(a,b)
     texto=""
-    retardo: float=0.10 # 2) acá cambio la velocidad en que se imprimen las lineas animadas.
+    retardo: float=0.10 
     for i in range(0,35):
         time.sleep(retardo)
         texto += char
@@ -32,23 +32,23 @@ def crearAnimacion(a, b, char):
         main_window.update_idletasks()
         main_window.update()
 
-#EJECUCION UTILIZANDO THREADS
-t1 = threading.Thread(target= crearAnimacion, args= (10,10, 'B')) # 1) acá se modifica el caracter de las lineas animadas.
-t2 = threading.Thread(target= crearAnimacion, args= (10,30, 'A'))
-t3 = threading.Thread(target= crearAnimacion, args= (10,50, 'R'))
-t4 = threading.Thread(target= crearAnimacion, args= (10,70, 'B'))
-t5 = threading.Thread(target= crearAnimacion, args= (10,90, 'Y'))
+#EJECUCION UTILIZANDO PROCESOS
+if __name__ == '__main__':
+    t1 = multiprocessing.Process(target= crearAnimacion, args= (10,10, 'B')) 
+    t2 = multiprocessing.Process(target= crearAnimacion, args= (10,30, 'A'))
+    t3 = multiprocessing.Process(target= crearAnimacion, args= (10,50, 'R'))
+    t4 = multiprocessing.Process(target= crearAnimacion, args= (10,70, 'B'))
+    t5 = multiprocessing.Process(target= crearAnimacion, args= (10,90, 'Y'))
 
-t1.start()
-t2.start()
-t3.start()
-t4.start()
-t5.start()
-
+    t1.start()
+    t2.start()
+    t3.start()
+    t4.start()
+    t5.start()
 
 # Mantener las siguientes líneas siempre al final del script y en el mismo orden.
 #Coloca la opcion "Salir"
-opcionFinalizar()
+    opcionFinalizar()
 
 #Bucle principal de la ventana
-main_window.mainloop()
+    main_window.mainloop()
